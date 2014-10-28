@@ -1,0 +1,35 @@
+
+{
+  id: 1,
+  time_started: "2014-10-28 11:06:02 +0000",
+  fuel_type: "Diesel",
+  average_mpg: 10,
+  distance_traveled: 100,
+  events: [
+    {
+      timestamp: "2014-10-28 11:06:02 +0000",
+      engine_rpm: 2000,
+      speed: 10,
+      engine_coolant_temperature: 20,
+      engine_load_value: 100,
+      throttle_position: 60,
+      ambient_air_temperature: 25,
+      latitude: 50,
+      longitude: 12,
+      consumption: 30
+    },
+    {
+      timestamp: "2014-10-28 11:06:03 +0000",
+      engine_rpm: 2200,
+      speed: 12,
+      engine_coolant_temperature: 22,
+      engine_load_value: 90,
+      throttle_position: 20,
+      ambient_air_temperature: 25,
+      ambient_air_temperature: 25,
+      latitude: 50,
+      longitude: 12,
+      consumption: 30
+    }
+  ]
+}
