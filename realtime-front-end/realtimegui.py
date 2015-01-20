@@ -6,7 +6,9 @@
 import sys
 import threading 
 import json
-
+import obd
+from obd_exceptions import *
+from debug import debug
 from datetime import datetime, timedelta
 
 from random import randint
@@ -24,10 +26,18 @@ except ImportError:
     py3 = 1
 
 import realtimegui_support
+from connection_screen import Pimped_Is_Loading
+import connection_screen_support
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
+    global val, w, root, connection
+    # Attempt to connect to car first
+    connection = obd.OBD()
+    #while not connection.is_connected():
+    #    connection.connect()
+        
+    
     root = Tk()
     root.title('Real_time_display')
     root.geometry('1264x692+18+201')
@@ -57,7 +67,8 @@ def destroy_Real_time_display():
 class Real_time_display:
     
     def __init__(self, master=None):
-        
+        global connection
+        comms = obd.commands
         self.temperatures_shown = False
         self.count = 0
         self.journeyTime = 0
@@ -71,6 +82,12 @@ class Real_time_display:
         self.load = 0
         self.engine_temp = 0
         self.air_temp = 0
+        self.drive_data = {
+            'time_started' : "%s" % datetime.utcnow(),
+            'fuel_type' : connection.query(comms['FUEL_TYPE']).value,
+            'distance_travelled' : 0,
+            'events' : []
+        }
         
         _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
         _fgcolor = '#000000'  # X11 color: 'black'
@@ -275,7 +292,7 @@ class Real_time_display:
             self.throttle = 0
         self.engine_load = randint(100,200)
         self.engine_temp = randint(100,130)
-        self.air_temp = randint(9,10)
+        self.air_temp = randint(9,10)\
         
         
         self.updateView()
@@ -283,23 +300,61 @@ class Real_time_display:
         
     def readValues(self):
         global jsonfile
-        currentValues = json.load(jsonfile)
+        global connection
+        comms = obd.commands
+        #currentValues = json.load(jsonfile)
         
         self.count += 1
         if(self.count % 2 == 0):
             self.journeyTime += 1
         self.gpsLAT = randint(0.0,90.0)
         self.gpsLONG = randint(0.0,180.0)
-        self.mph = randint(30,40)
+	try:
+	    self.mph =  float(connection.query(comms['SPEED']).value)
+	except:
+	    self.mph = randint(0.0, 30.0)
+			
         self.mpg = randint(40,50)
-        self.revs = randint(2000,3000)
+        self.revs = connection.query(comms['RPM']).value
         self.miles += 0.1
-        self.throttle += 1
-        if(self.throttle > 20):
-            self.throttle = 0
-        self.engine_load = randint(100,200)
-        self.engine_temp = randint(100,130)
-        self.air_temp = randint(9,10)
+        self.throttle = connection.query(comms['THROTTLE_POS']).value
+        self.engine_load = connection.query(comms['ENGINE_LOAD']).value
+        self.engine_temp = connection.query(comms['COOLANT_TEMP']).value
+        self.air_temp = connection.query(comms['INTAKE_TEMP']).value
+        
+        # From http://stackoverflow.com/questions/17170646/fuel-consumption-from-obd2-port-parameters
+        # To calculate, MPG = VSS (Vehicle speed in Km/Hr) * 7.718/MAF (Air Flow Rate)
+        try:
+            maf = connection.query(comms['MAF']).value
+            self.mpg = self.speed * 7.718/maf
+        except:
+            self.mpg = 0
+        self.updateView()
+        self.update_log_file()
+        self.timeoutRead()
+    
+    def update_log_file(self):
+	comms = obd.commands
+        # Update the dictionary
+        self.drive_data['distance_travelled'] = self.miles
+        temp_data = {
+           'timestamp' : "%s" % datetime.utcnow(),
+            'engine_rpm' : self.revs,
+            'speed' : self.mph,
+            'engine_cooland_temperature' : self.engine_temp,
+            'engine_load_value' : self.engine_load,
+            'throttle_position' : self.throttle,
+            'ambient_air_temperature' : self.air_temp,
+            'latitude' : self.gpsLAT,
+            'longitude' : self.gpsLONG,
+            'consumption' : self.mpg
+        }
+        
+        self.drive_data['events'].append(temp_data)
+        
+        outfile = open("log.json", "w")
+        json.dump(self.drive_data, outfile, indent=4)
+        outfile.close()
         
     def updateView(self):
         #global temperatures_shown, journeyTime, gpsLAT, gpsLONG, mph, mpg, revs, miles, throttle, load, engine_temp, air_temp
@@ -328,7 +383,7 @@ class Real_time_display:
             
     def timeoutRead(self):
 
-        threading.Timer(0.5, self.randomValues).start()
+        threading.Timer(0.5, self.readValues).start()
         
 if __name__ == '__main__':
     vp_start_gui()
