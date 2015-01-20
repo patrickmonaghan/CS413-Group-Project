@@ -274,7 +274,7 @@ class Real_time_display:
         #global temperatures_shown
         self.temperatures_shown = not self.temperatures_shown
         self.updateView()
-        self.timeoutSwitch(5.0)
+        self.timeoutSwitch()
         
     def randomValues(self):
 #       global temperatures_shown, journeyTime, gpsLAT, gpsLONG, mph, mpg, revs, miles, throttle, load, engine_temp, air_temp, scrollVal1, scrollVal2
@@ -312,11 +312,20 @@ class Real_time_display:
 	try:
 	    self.mph =  float(connection.query(comms['SPEED']).value)
 	except:
-	    self.mph = randint(0.0, 30.0)
+	    self.mph = 0
 			
-        self.mpg = randint(40,50)
         self.revs = connection.query(comms['RPM']).value
-        self.miles += 0.1
+
+        """
+        This thread is called every 0.5 seconds.
+        3600 seconds in an hour, so distance travelled in last 0.5
+        seconds = MPH / 7200
+        """
+        try:
+            self.miles += (float(self.mph)/float(7200))
+        except:
+            pass
+        
         self.throttle = connection.query(comms['THROTTLE_POS']).value
         self.engine_load = connection.query(comms['ENGINE_LOAD']).value
         self.engine_temp = connection.query(comms['COOLANT_TEMP']).value
@@ -363,7 +372,7 @@ class Real_time_display:
     
         self.lblTime.configure(text=str(d.hour) + "h " + str(d.minute) + "m " + str(d.second) + "s")
         self.lblGPS.configure(text=str(self.gpsLAT) + "N" + str(self.gpsLONG) + "E")
-        self.lblMilesVal.configure(text=str(self.miles) + "m")
+        self.lblMilesVal.configure(text="%.1fm" % self.miles)
         self.lblMPH.configure(text=str(self.mph) + "mph")
         self.lblMPG.configure(text=str(self.mpg) + "mpg")
         self.lblRPM.configure(text=str(self.revs) + "rpm")
