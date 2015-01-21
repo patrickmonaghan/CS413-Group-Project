@@ -117,7 +117,7 @@ class Real_time_display:
         self.lblMPH.configure(foreground="#ffffff")
         self.lblMPH.configure(highlightbackground="#d9d9d9")
         self.lblMPH.configure(highlightcolor="black")
-        self.lblMPH.configure(text='''25mph''')
+        self.lblMPH.configure(text='''0mph''')
 
         self.menubar = Menu(master,bg=_bgcolor,fg=_fgcolor)
         master.configure(menu = self.menubar)
@@ -145,7 +145,7 @@ class Real_time_display:
         self.lblTime.configure(foreground="#ffffff")
         self.lblTime.configure(highlightbackground="#d9d9d9")
         self.lblTime.configure(highlightcolor="black")
-        self.lblTime.configure(text='''125m 32s''')
+        self.lblTime.configure(text='''0h 0m 0s''')
 
         self.lblNameGPS = Label(master)
         self.lblNameGPS.place(relx=0.60, rely=0.03, height=55, width=180)
@@ -181,7 +181,7 @@ class Real_time_display:
         self.lblMPG.configure(foreground="#ffffff")
         self.lblMPG.configure(highlightbackground="#d9d9d9")
         self.lblMPG.configure(highlightcolor="black")
-        self.lblMPG.configure(text='''40mpg''')
+        self.lblMPG.configure(text='''0mpg''')
 
 
         self.lblRPM = Label(master)
@@ -194,7 +194,7 @@ class Real_time_display:
         self.lblRPM.configure(foreground="#ffffff")
         self.lblRPM.configure(highlightbackground="#d9d9d9")
         self.lblRPM.configure(highlightcolor="black")
-        self.lblRPM.configure(text='''1000rpm''')
+        self.lblRPM.configure(text='''0rpm''')
 
         self.lblScroller1 = Label(master)
         self.lblScroller1.place(relx=0.01, rely=0.79, height=53, width=406)
@@ -218,7 +218,7 @@ class Real_time_display:
         self.lblScrollerVal1.configure(foreground="#ffffff")
         self.lblScrollerVal1.configure(highlightbackground="#d9d9d9")
         self.lblScrollerVal1.configure(highlightcolor="black")
-        self.lblScrollerVal1.configure(text='''234''')
+        self.lblScrollerVal1.configure(text='''0%''')
         
         self.lblMiles = Label(master)
         self.lblMiles.place(relx=0.34, rely=0.79, height=53, width=406)
@@ -242,7 +242,7 @@ class Real_time_display:
         self.lblMilesVal.configure(foreground="#ffffff")
         self.lblMilesVal.configure(highlightbackground="#d9d9d9")
         self.lblMilesVal.configure(highlightcolor="black")
-        self.lblMilesVal.configure(text='''42''')
+        self.lblMilesVal.configure(text='''0''')
         
         self.lblScroller2 = Label(master)
         self.lblScroller2.place(relx=0.67, rely=0.79, height=53, width=406)
@@ -266,7 +266,7 @@ class Real_time_display:
         self.lblScrollerVal2.configure(foreground="#ffffff")
         self.lblScrollerVal2.configure(highlightbackground="#d9d9d9")
         self.lblScrollerVal2.configure(highlightcolor="black")
-        self.lblScrollerVal2.configure(text='''7''')
+        self.lblScrollerVal2.configure(text='''0%''')
 
         self.temperatures_shown = False 
         self.timeoutRead()
