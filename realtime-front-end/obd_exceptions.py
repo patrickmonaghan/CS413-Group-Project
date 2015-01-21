@@ -1,0 +1,2 @@
+class CannotConnectToOBD(Exception):
+    pass
