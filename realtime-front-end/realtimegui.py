@@ -38,8 +38,8 @@ def vp_start_gui():
     # Attempt to connect to car first
     connection = obd.OBD()
     outputfile = datetime.utcnow().strftime("log-%d%m%y_%H%M.json")
-    #while not connection.is_connected():
-       # connection.connect()
+    while not connection.is_connected():
+       connection.connect()
         
     
     root = Tk()
