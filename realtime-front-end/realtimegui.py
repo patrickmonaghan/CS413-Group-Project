@@ -30,18 +30,21 @@ from connection_screen import Pimped_Is_Loading
 import connection_screen_support
 
 w = None
+outputfile = None
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root, connection
+    global val, w, root, connection, outputfile
     # Attempt to connect to car first
     connection = obd.OBD()
-    while not connection.is_connected():
-        connection.connect()
+    outputfile = datetime.utcnow().strftime("log-%d%m%y_%H%M.json")
+    #while not connection.is_connected():
+       # connection.connect()
         
     
     root = Tk()
     root.title('Real_time_display')
+    root.attributes('-fullscreen', True)
     root.geometry('1264x692+18+201')
     w = Real_time_display (root)
     realtimegui_support.init(root, w)
@@ -278,16 +281,15 @@ class Real_time_display:
     def readValues(self):
         global jsonfile
         global connection
-        comms = obd.commands
-        #currentValues = json.load(jsonfile)
-        
+        comms = obd.commands        
         self.count += 1
         if(self.count % 2 == 0):
             self.journeyTime += 1
         self.gpsLAT = randint(0.0,90.0)
         self.gpsLONG = randint(0.0,180.0)
 	try:
-	    self.mph =  float(connection.query(comms['SPEED']).value)
+            # This gives us speed in KM/h. To convert, multiply by 0.621371192
+	    self.mph =  float(connection.query(comms['SPEED']).value * 0.621371192)
 	except:
 	    self.mph = 0
 			
@@ -305,21 +307,22 @@ class Real_time_display:
         
         self.throttle = connection.query(comms['THROTTLE_POS']).value
         self.engine_load = connection.query(comms['ENGINE_LOAD']).value
-        self.engine_temp = connection.query(comms['COOLANT_TEMP']).value
-        self.air_temp = connection.query(comms['INTAKE_TEMP']).value
+        self.engine_temp = ((connection.query(comms['COOLANT_TEMP']).value - 32) * 5) /9
+        self.air_temp = ((connection.query(comms['INTAKE_TEMP']).value - 32) * 5) /9
         
         # From http://stackoverflow.com/questions/17170646/fuel-consumption-from-obd2-port-parameters
         # To calculate, MPG = VSS (Vehicle speed in Km/Hr) * 7.718/MAF (Air Flow Rate)
-        try:
+        if int(self.mph) > 0:
             maf = connection.query(comms['MAF']).value
-            self.mpg = self.speed * 7.718/maf
-        except:
+            self.mpg = (self.mph * 7.718)/maf
+        else:
             self.mpg = 0
         self.updateView()
         self.update_log_file()
         self.timeoutRead()
     
     def update_log_file(self):
+        global outputfile
 	comms = obd.commands
         # Update the dictionary
         self.drive_data['distance_travelled'] = self.miles
@@ -338,7 +341,7 @@ class Real_time_display:
         
         self.drive_data['events'].append(temp_data)
         
-        outfile = open("log.json", "w")
+        outfile = open(outputfile, "w")
         json.dump(self.drive_data, outfile, indent=4)
         outfile.close()
         
@@ -350,9 +353,9 @@ class Real_time_display:
         self.lblTime.configure(text=str(d.hour) + "h " + str(d.minute) + "m " + str(d.second) + "s")
         self.lblGPS.configure(text=str(self.gpsLAT) + "N" + str(self.gpsLONG) + "E")
         self.lblMilesVal.configure(text="%.1fm" % self.miles)
-        self.lblMPH.configure(text="%i mph" % int(self.mph))
-        self.lblMPG.configure(text="%.1fmpg" % self.mpg)
-        self.lblRPM.configure(text="%i rpm" % int(self.revs))
+        self.lblMPH.configure(text="%imph" % int(self.mph))
+        self.lblMPG.configure(text="%impg" % int(self.mpg))
+        self.lblRPM.configure(text="%irpm" % int(self.revs))
         if(self.temperatures_shown):
             self.lblScroller1.configure(text='''Engine''')
             self.lblScrollerVal1.configure(text=str(self.engine_temp) + u"\u00B0" + "C")
@@ -360,9 +363,9 @@ class Real_time_display:
             self.lblScrollerVal2.configure(text=str(self.air_temp) + u"\u00B0" + "C")
         else:
             self.lblScroller1.configure(text='''Load''')
-            self.lblScrollerVal1.configure(text="%.1f%" % self.engine_load)
+            self.lblScrollerVal1.configure(text="%.1f%%" % self.engine_load)
             self.lblScroller2.configure(text='''Throttle''')
-            self.lblScrollerVal2.configure(text="%.1f%" % self.throttle)
+            self.lblScrollerVal2.configure(text="%.1f%%" % self.throttle)
         
     def timeoutSwitch(self):
         threading.Timer(5.0, self.switchLabels).start()

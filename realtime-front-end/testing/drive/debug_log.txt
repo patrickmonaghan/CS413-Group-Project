@@ -1,0 +1,270 @@
+Starting python-OBD
+Using scanSerial to select port
+Opening serial port...
+Serial port successfully opened on /dev/ttyUSB0
+atz response: ELM327 v1.4
+ate0 response: ate0OK
+Connected to ECU
+querying for supported PIDs (commands)...
+Sending command: 0100: Supported PIDs [01-20]
+command returned: 41 00 BE 3F B8 13 
+Sending command: 0120: Supported PIDs [21-40]
+command returned: 41 20 80 07 A0 11 
+Sending command: 0140: Supported PIDs [41-60]
+command returned: 41 40 FE D0 00 00 
+finished querying with 35 commands supported
+'0151: Fuel Type' is not supported
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 0A 8D 
+Sending command: 0111: Throttle Position
+command returned: 41 11 37 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 1A 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 0A AD 
+Sending command: 0111: Throttle Position
+command returned: 41 11 37 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 1A 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 0A A5 
+Sending command: 0111: Throttle Position
+command returned: 41 11 37 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 19 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 0A B5 
+Sending command: 0111: Throttle Position
+command returned: 41 11 37 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 19 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 1A 38 
+Sending command: 0111: Throttle Position
+command returned: 41 11 60 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 56 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 24 24 
+Sending command: 0111: Throttle Position
+command returned: 41 11 60 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 4A 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 17 C5 
+Sending command: 0111: Throttle Position
+command returned: 41 11 63 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 50 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 15 99 
+Sending command: 0111: Throttle Position
+command returned: 41 11 64 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 54 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 12 0D 
+Sending command: 0111: Throttle Position
+command returned: 41 11 7F 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 5F 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 12 8D 
+Sending command: 0111: Throttle Position
+command returned: 41 11 84 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 5E 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 16 DC 
+Sending command: 0111: Throttle Position
+command returned: 41 11 71 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 5B 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 18 E1 
+Sending command: 0111: Throttle Position
+command returned: 41 11 7B 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 67 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 15 56 
+Sending command: 0111: Throttle Position
+command returned: 41 11 84 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 5D 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 91 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 14 D2 
+Sending command: 0111: Throttle Position
+command returned: 41 11 83 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 60 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 12 B5 
+Sending command: 0111: Throttle Position
+command returned: 41 11 81 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 5C 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 11 99 
+Sending command: 0111: Throttle Position
+command returned: 41 11 81 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 5A 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 1A BF 
+Sending command: 0111: Throttle Position
+command returned: 41 11 3D 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 12 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 14 52 
+Sending command: 0111: Throttle Position
+command returned: 41 11 3A 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 17 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 0B F0 
+Sending command: 0111: Throttle Position
+command returned: 41 11 3D 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 23 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 00 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 0A E9 
+Sending command: 0111: Throttle Position
+command returned: 41 11 3C 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 20 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 010D: Vehicle Speed
+command returned: 41 0D 03 
+Sending command: 010C: Engine RPM
+command returned: 41 0C 0D 9F 
+Sending command: 0111: Throttle Position
+command returned: 41 11 3D 
+Sending command: 0104: Calculated Engine Load
+command returned: 41 04 22 
+Sending command: 0105: Engine Coolant Temperature
+command returned: 41 05 92 
+Sending command: 010F: Intake Air Temp
+command returned: 41 0F 5A 
+Sending command: 0110: Air Flow Rate (MAF)
+command returned: 41 10 01 31 
