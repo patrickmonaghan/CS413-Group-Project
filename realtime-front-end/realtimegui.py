@@ -29,13 +29,15 @@ import realtimegui_support
 from connection_screen import Pimped_Is_Loading
 import connection_screen_support
 
+w = None
+
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root, connection
     # Attempt to connect to car first
     connection = obd.OBD()
-    #while not connection.is_connected():
-    #    connection.connect()
+    while not connection.is_connected():
+        connection.connect()
         
     
     root = Tk()
@@ -44,9 +46,6 @@ def vp_start_gui():
     w = Real_time_display (root)
     realtimegui_support.init(root, w)
     root.mainloop()
-
-w = None
-jsonfile = "gui.json"
 
 def create_Real_time_display(root, param=None):
     '''Starting point when module is imported by another program.'''
@@ -276,28 +275,6 @@ class Real_time_display:
         self.updateView()
         self.timeoutSwitch()
         
-    def randomValues(self):
-#       global temperatures_shown, journeyTime, gpsLAT, gpsLONG, mph, mpg, revs, miles, throttle, load, engine_temp, air_temp, scrollVal1, scrollVal2
-        self.count += 1
-        if(self.count % 2 == 0):
-            self.journeyTime += 1
-        self.gpsLAT = randint(0.0,90.0)
-        self.gpsLONG = randint(0.0,180.0)
-        self.mph = randint(30,40)
-        self.mpg = randint(40,50)
-        self.revs = randint(2000,3000)
-        self.miles += 0.1
-        self.throttle += 1
-        if(self.throttle > 20):
-            self.throttle = 0
-        self.engine_load = randint(100,200)
-        self.engine_temp = randint(100,130)
-        self.air_temp = randint(9,10)\
-        
-        
-        self.updateView()
-        self.timeoutRead()
-        
     def readValues(self):
         global jsonfile
         global connection
@@ -373,9 +350,9 @@ class Real_time_display:
         self.lblTime.configure(text=str(d.hour) + "h " + str(d.minute) + "m " + str(d.second) + "s")
         self.lblGPS.configure(text=str(self.gpsLAT) + "N" + str(self.gpsLONG) + "E")
         self.lblMilesVal.configure(text="%.1fm" % self.miles)
-        self.lblMPH.configure(text=str(self.mph) + "mph")
-        self.lblMPG.configure(text=str(self.mpg) + "mpg")
-        self.lblRPM.configure(text=str(self.revs) + "rpm")
+        self.lblMPH.configure(text="%i mph" % int(self.mph))
+        self.lblMPG.configure(text="%.1fmpg" % self.mpg)
+        self.lblRPM.configure(text="%i rpm" % int(self.revs))
         if(self.temperatures_shown):
             self.lblScroller1.configure(text='''Engine''')
             self.lblScrollerVal1.configure(text=str(self.engine_temp) + u"\u00B0" + "C")
@@ -383,9 +360,9 @@ class Real_time_display:
             self.lblScrollerVal2.configure(text=str(self.air_temp) + u"\u00B0" + "C")
         else:
             self.lblScroller1.configure(text='''Load''')
-            self.lblScrollerVal1.configure(text=str(self.engine_load))
+            self.lblScrollerVal1.configure(text="%.1f%" % self.engine_load)
             self.lblScroller2.configure(text='''Throttle''')
-            self.lblScrollerVal2.configure(text=str(self.throttle) + "%")
+            self.lblScrollerVal2.configure(text="%.1f%" % self.throttle)
         
     def timeoutSwitch(self):
         threading.Timer(5.0, self.switchLabels).start()
