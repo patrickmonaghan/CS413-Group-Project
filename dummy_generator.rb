@@ -21,7 +21,7 @@ points.each do |point|
     ambient_air_temperature: rand(20..23),
     latitude: point["lat"].value.to_f,
     longitude: point["lon"].value.to_f,
-    consumption: rand(20..30)
+    consumption: rand(45..50)
   }
 end
 
